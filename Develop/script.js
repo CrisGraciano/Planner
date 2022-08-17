@@ -1,16 +1,22 @@
-// opening the planner up, day is displayed on top
+var $currentDay = $("#currentDay");
+var $currentDate = moment().format("dddd, MMMM Do");
 
-// when user scrolls down, they see time blocks for 9am-5pm
+// 1. opening the planner up, day is displayed on top
+$(document).ready(function() {
+    $currentDay.text($currentDate);
+});
 
-// when user views said blocks, they are color coded to represent past, present or future
+// 2. when user scrolls down, they see time blocks for 9am-5pm
 
-// when user clicks time block, they can enter an event
+// 3. when user views said blocks, they are color coded to represent past, present or future
+
+// 4. when user clicks time block, they can enter an event
 document.addEventListener("click", enterEvent)
 
 function enterEvent() {
     document.getElementById("container");
     
 }
-// when event is saved, it will stay in local storage
+// 5. when event is saved, it will stay in local storage
 
-// when page is refrshed, saved events stay the same
+// 6.cwhen page is refrshed, saved events stay the same
