@@ -17,13 +17,13 @@ function colorTimeBlocks() {
         var thisBlockHour = parseInt($thisBlock.attr("hour"));
 
         if (thisBlockHour == currentHour) {
-            $thisBlock.addClass("current").removeClass("past upcoming");
+            $thisBlock.addClass("present").removeClass("past future");
         }
         if (thisBlockHour < currentHour) {
-            $thisBlock.addClass("past").removeClass("current upcoming");
+            $thisBlock.addClass("past").removeClass("present future");
         }
         if (thisBlockHour > currentHour) {
-            $thisBlock.addClass("upcoming").removeClass("past current")
+            $thisBlock.addClass("future").removeClass("past present")
         }
     });
 }
