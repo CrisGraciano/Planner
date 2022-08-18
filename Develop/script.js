@@ -1,7 +1,10 @@
 var $currentDay = $("#currentDay");
 var $currentDate = moment().format("dddd, MMMM Do");
+var $scheduleArea = $(".scedule");
 
 var $timeBlocks = $(".timeblock");
+
+var toDoItems = [];
 
 // 1. opening the planner up, day is displayed on top (done)
 $(document).ready(function() {
@@ -13,7 +16,7 @@ $(document).ready(function() {
 // 3. when user views said blocks, they are color coded to represent past, present or future
 function colorTimeBlocks() {
     $timeBlocks.each(function() {
-        $thisBlock = $(this);
+        var $thisBlock = $(this);
         var thisBlockHour = parseInt($thisBlock.attr("hour"));
 
         if (thisBlockHour == currentHour) {
@@ -23,17 +26,43 @@ function colorTimeBlocks() {
             $thisBlock.addClass("past").removeClass("present future");
         }
         if (thisBlockHour > currentHour) {
-            $thisBlock.addClass("future").removeClass("past present")
+            $thisBlock.addClass("future").removeClass("past present");
         }
     });
 }
-// 4. when user clicks time block, they can enter an event (done)
-document.addEventListener("click", enterEvent)
 
-function enterEvent() {
-    document.getElementById("container");
-    
-}
 // 5. when event is saved, it will stay in local storage
+function saveToDoInputs() {
 
-// 6.when page is refrshed, saved events stay the same
+    var $thisBlock = $(this).parent();
+    var hourToUpdate = $(this).parent().attr("hour");
+    var itemToAdd = (($(this).parent()).children("textarea")).val();
+    var toDoItems = document.getElementById("textarea");
+
+    for (var j = 0; j < toDoItems.length; j++){
+        if (toDoItems[j].hour == hourToUpdate){
+          toDoItems[j].text = itemToAdd;
+        }
+      }
+
+    localStorage.setItem("todos", JSON.stringify(toDoItems));
+
+}
+
+
+function startPlanner() {
+    $timeBlocks.each(function() {
+        var $thisBlock = $(this);
+        var thisBlockHour = parseInt($thisBlock.attr("data"));
+
+        var todoInputs = {
+            hour: thisBlockHour,
+            text: "",
+        }
+        toDoItems.push(todoInputs);
+    
+    });
+
+    localStorage.setItem("todos", JSON.stringify(toDoItems));
+
+}
